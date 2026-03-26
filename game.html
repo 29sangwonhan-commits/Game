@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pattern RPS Game</title>
+    <style>
+        /* --- CSS: THE BLUE THEME --- */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #001f3f; /* Deep Navy Blue */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: #003366; /* Steel Blue */
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 2px solid #0074D9;
+        }
+
+        h1 { margin-bottom: 30px; color: #7FDBFF; }
+
+        .choices {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        button {
+            padding: 15px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            background-color: #0074D9;
+            color: white;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #7FDBFF;
+            color: #001f3f;
+            transform: translateY(-3px);
+        }
+
+        #countdown-text {
+            font-size: 80px;
+            height: 100px;
+            margin: 20px 0;
+            color: #FFDC00; /* Contrast color for countdown */
+        }
+
+        /* --- RESULT POPUP --- */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+        }
+
+        #result-msg {
+            font-size: 60px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .lose-image {
+            max-width: 300px;
+            border: 5px solid #0074D9;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .restart-btn {
+            background-color: #ffffff;
+            color: #001f3f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Rock Paper Scissors</h1>
+        <div id="countdown-text"></div>
+        <div class="choices">
+            <button onclick="startGame('rock')">ROCK</button>
+            <button onclick="startGame('paper')">PAPER</button>
+            <button onclick="startGame('scissors')">SCISSORS</button>
+        </div>
+    </div>
+
+    <div id="popup">
+        <div id="result-msg"></div>
+        <div id="media-content"></div>
+        <button class="restart-btn" onclick="closePopup()">PLAY AGAIN</button>
+    </div>
+
+    <script>
+        /* --- JAVASCRIPT: THE LOGIC --- */
+        
+        // AI Pattern as requested: Rock, Rock, Paper, Scissors
+        const pattern = ['rock', 'rock', 'paper', 'scissors'];
+        let patternIndex = 0;
+
+        function startGame(playerChoice) {
+            const countdownDisplay = document.getElementById('countdown-text');
+            let count = 3;
+            
+            // Clear previous text
+            countdownDisplay.innerText = count;
+
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownDisplay.innerText = count;
+                } else {
+                    clearInterval(interval);
+                    countdownDisplay.innerText = "";
+                    processResult(playerChoice);
+                }
+            }, 800); // 800ms per number
+        }
+
+        function processResult(playerChoice) {
+            const aiChoice = pattern[patternIndex];
+            
+            // Advance pattern (and reset to 0 if it hits the end)
+            patternIndex = (patternIndex + 1) % pattern.length;
+
+            const popup = document.getElementById('popup');
+            const msg = document.getElementById('result-msg');
+            const media = document.getElementById('media-content');
+
+            let outcome = "";
+
+            if (playerChoice === aiChoice) {
+                outcome = "DRAW";
+            } else if (
+                (playerChoice === 'rock' && aiChoice === 'scissors') ||
+                (playerChoice === 'paper' && aiChoice === 'rock') ||
+                (playerChoice === 'scissors' && aiChoice === 'paper')
+            ) {
+                outcome = "WIN";
+            } else {
+                outcome = "LOSE";
+            }
+
+            // Show Popup
+            popup.style.display = 'flex';
+            msg.innerText = outcome;
+
+            if (outcome === "LOSE") {
+                // Ensure your image file is named 'lose.png' in the same folder
+                media.innerHTML = `<img src="lose.png" class="lose-image" alt="You Lose!">`;
+            } else {
+                media.innerHTML = ""; // No image for Win or Draw
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>
