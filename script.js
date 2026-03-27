@@ -1,3 +1,29 @@
+// AI Pattern: Rock, Rock, Paper, Scissors
+const pattern = ['rock', 'rock', 'paper', 'scissors'];
+let patternIndex = 0;
+
+function startGame(playerChoice) {
+    const countdownDisplay = document.getElementById('countdown-text');
+    let count = 3;
+    const buttons = document.querySelectorAll('.choices button');
+    
+    // Lock buttons
+    buttons.forEach(btn => btn.disabled = true);
+    countdownDisplay.innerText = count;
+
+    const interval = setInterval(() => {
+        count--;
+        if (count > 0) {
+            countdownDisplay.innerText = count;
+        } else {
+            clearInterval(interval);
+            countdownDisplay.innerText = "";
+            buttons.forEach(btn => btn.disabled = false); 
+            processResult(playerChoice);
+        }
+    }, 800);
+}
+
 function processResult(playerChoice) {
     const aiChoice = pattern[patternIndex];
     patternIndex = (patternIndex + 1) % pattern.length;
@@ -6,29 +32,35 @@ function processResult(playerChoice) {
     const msg = document.getElementById('result-msg');
     const media = document.getElementById('media-content');
 
-    let outcome = "";
-    if (playerChoice === aiChoice) { outcome = "DRAW"; }
+    popup.style.display = 'flex';
+
+    if (playerChoice === aiChoice) {
+        msg.innerText = "DRAW";
+        media.innerHTML = ``;
+    } 
     else if (
         (playerChoice === 'rock' && aiChoice === 'scissors') ||
         (playerChoice === 'paper' && aiChoice === 'rock') ||
         (playerChoice === 'scissors' && aiChoice === 'paper')
-    ) { outcome = "WIN"; }
-    else { outcome = "LOSE"; }
-
-    popup.style.display = 'flex';
-    
-    if (outcome === "WIN") {
-        msg.innerText = ""; // Hide the default 'WIN' text to use custom title
+    ) {
+        // WINNING SCREEN
+        msg.innerText = ""; 
         media.innerHTML = `
             <div class="win-title">CHAMPION TIME!</div>
             <img src="win.png" class="result-image">
             <img src="celebrate.png" class="moving-image">
+            <div class="button-group">
+                <button class="home-btn" onclick="closePopup()">HOME PAGE</button>
+            </div>
         `;
-    } else if (outcome === "LOSE") {
+    } 
+    else {
+        // LOSING SCREEN
         msg.innerText = "LOSE";
         media.innerHTML = `<img src="lose.png" class="result-image">`;
-    } else {
-        msg.innerText = "DRAW";
-        media.innerHTML = ""; 
     }
+}
+
+function closePopup() {
+    document.getElementById('popup').style.display = 'none';
 }
