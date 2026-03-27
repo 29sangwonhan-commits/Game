@@ -1,7 +1,6 @@
-/* --- 1. THEME & BACKGROUND --- */
 body {
     font-family: 'Arial Black', sans-serif;
-    background-image: url('background.png'); /* The boy with the cake */
+    background-image: url('background.png'); 
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -10,49 +9,37 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 
-/* --- 2. MAIN MENU CARD --- */
 .container {
     text-align: center;
-    background: rgba(0, 31, 63, 0.85); /* Deep Blue Glass Effect */
+    background: rgba(0, 31, 63, 0.85);
     backdrop-filter: blur(10px);
     padding: 50px;
     border-radius: 30px;
     border: 3px solid #0074D9;
-    box-shadow: 0 0 40px rgba(0,0,0,0.6);
     width: 90%;
     max-width: 600px;
 }
 
-h1 { color: #7FDBFF; font-size: 3rem; margin-bottom: 30px; text-shadow: 2px 2px #000; }
-
 #countdown-text {
     font-size: 110px;
-    height: 130px;
     color: #FFDC00;
-    text-shadow: 4px 4px #000;
+    height: 130px;
 }
 
-.choices { display: flex; gap: 20px; justify-content: center; }
-
-button {
+.choices button {
     padding: 15px 30px;
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
-    border: none;
-    border-radius: 12px;
     background: #0074D9;
     color: white;
+    border: none;
+    border-radius: 12px;
     box-shadow: 0 6px 0 #004a8d;
-    transition: 0.1s;
 }
 
-button:active { transform: translateY(3px); box-shadow: 0 3px 0 #004a8d; }
-
-/* --- 3. HUGE RESULT POPUP --- */
 #popup {
     display: none;
     position: fixed;
@@ -63,49 +50,46 @@ button:active { transform: translateY(3px); box-shadow: 0 3px 0 #004a8d; }
     align-items: center;
     justify-content: center;
     z-index: 1000;
-    padding: 20px;
 }
 
-#result-msg { font-size: 90px; color: #7FDBFF; margin-bottom: 10px; text-transform: uppercase; }
+/* --- WIN IMAGE SIDE-BY-SIDE LAYOUT --- */
+.image-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 95%;
+}
 
-.win-title { font-size: 55px; color: #FFDC00; margin-bottom: 20px; text-shadow: 0 0 15px #FFDC00; }
-
-/* IMAGE SIZES */
 .result-image {
-    width: 90%; /* MASSIVE */
-    max-width: 1100px;
-    max-height: 50vh;
+    width: 45%; /* Adjusted so two can fit */
+    max-height: 40vh;
     object-fit: contain;
-    border: 10px solid #0074D9;
-    border-radius: 20px;
+    border: 5px solid #0074D9;
+    border-radius: 15px;
+}
+
+.result-image-side {
+    width: 45%;
+    max-height: 40vh;
+    object-fit: contain;
+    border: 5px solid #FFDC00; /* Different border color for variety */
+    border-radius: 15px;
 }
 
 .moving-image {
-    width: 55%;
-    max-width: 450px;
-    margin-top: 25px;
-    border: 6px solid #FFDC00;
-    border-radius: 15px;
+    width: 40%;
+    max-width: 300px;
+    margin-top: 20px;
+    border: 4px solid #FFDC00;
+    border-radius: 10px;
     animation: bounce 1.8s infinite ease-in-out;
 }
 
-/* 2cm BOUNCE ANIMATION */
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-75px); } /* 75px is roughly 2cm */
+    50% { transform: translateY(-75px); }
 }
 
-/* --- 4. WIN SCREEN BUTTONS --- */
-.button-group {
-    margin-top: 40px;
-    display: flex;
-    gap: 30px;
-}
-
-.home-btn {
-    background-color: #FFDC00 !important;
-    color: #001f3f !important;
-    padding: 20px 60px !important;
-    font-size: 25px !important;
-    box-shadow: 0 8px 0 #b39b00 !important;
-}
+.win-title { font-size: 40px; color: #FFDC00; margin-bottom: 10px; }
+#result-msg { font-size: 80px; color: #7FDBFF; }
