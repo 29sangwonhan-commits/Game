@@ -3,13 +3,129 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pattern RPS Game</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Ultimate RPS Pattern Game</title>
+    <style>
+        /* --- FULL CSS VERSION --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Arial Black', sans-serif;
+            /* Your background image */
+            background-image: url('background.png'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        /* The Main Menu Card */
+        .container {
+            text-align: center;
+            background: rgba(0, 40, 80, 0.85); /* Semi-transparent Blue */
+            backdrop-filter: blur(10px);
+            padding: 50px;
+            border-radius: 30px;
+            border: 4px solid #0074D9;
+            box-shadow: 0 0 50px rgba(0,0,0,0.7);
+            width: 90%;
+            max-width: 600px;
+            z-index: 5;
+        }
+
+        h1 { font-size: 3rem; color: #7FDBFF; margin-bottom: 30px; text-shadow: 3px 3px #000; }
+
+        #countdown-text {
+            font-size: 100px;
+            height: 120px;
+            color: #FFDC00;
+            text-shadow: 4px 4px #000;
+            margin-bottom: 20px;
+        }
+
+        .choices { display: flex; gap: 20px; justify-content: center; }
+
+        button {
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+            border-radius: 15px;
+            background: #0074D9;
+            color: white;
+            box-shadow: 0 8px 0 #004a8d;
+            transition: 0.1s;
+        }
+
+        button:active { transform: translateY(4px); box-shadow: 0 4px 0 #004a8d; }
+
+        /* --- THE HUGE POPUP --- */
+        #popup {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .win-title {
+            font-size: 70px;
+            color: #FFDC00;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 0 0 20px #FFDC00;
+        }
+
+        #result-msg { font-size: 100px; color: #7FDBFF; margin-bottom: 20px; }
+
+        /* IMAGE SIZES */
+        .result-image {
+            width: 85%; /* HUGE SIZE */
+            max-width: 1000px;
+            max-height: 50vh;
+            object-fit: contain;
+            border: 10px solid #0074D9;
+            border-radius: 20px;
+            box-shadow: 0 0 100px rgba(0, 116, 217, 0.6);
+        }
+
+        .moving-image {
+            width: 50%;
+            max-width: 400px;
+            margin-top: 30px;
+            border: 5px solid #FFDC00;
+            border-radius: 15px;
+            /* 2cm movement animation */
+            animation: bounce 1.5s infinite ease-in-out;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-75px); } /* Approx 2cm */
+        }
+
+        .restart-btn {
+            margin-top: 30px;
+            background: white !important;
+            color: #001f3f !important;
+            padding: 20px 60px !important;
+            box-shadow: 0 8px 0 #bbb !important;
+        }
+    </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>Rock Paper Scissors</h1>
+        <h1>RPS GAME</h1>
         <div id="countdown-text"></div>
         <div class="choices">
             <button onclick="startGame('rock')">ROCK</button>
@@ -24,6 +140,70 @@
         <button class="restart-btn" onclick="closePopup()">PLAY AGAIN</button>
     </div>
 
-    <script src="script.js"></script>
+    <script>
+        /* --- FULL JAVASCRIPT VERSION --- */
+        const pattern = ['rock', 'rock', 'paper', 'scissors'];
+        let patternIndex = 0;
+
+        function startGame(playerChoice) {
+            const countdownDisplay = document.getElementById('countdown-text');
+            let count = 3;
+            const buttons = document.querySelectorAll('.choices button');
+            
+            buttons.forEach(btn => btn.disabled = true);
+            countdownDisplay.innerText = count;
+
+            const interval = setInterval(() => {
+                count--;
+                if (count > 0) {
+                    countdownDisplay.innerText = count;
+                } else {
+                    clearInterval(interval);
+                    countdownDisplay.innerText = "";
+                    buttons.forEach(btn => btn.disabled = false); 
+                    processResult(playerChoice);
+                }
+            }, 800);
+        }
+
+        function processResult(playerChoice) {
+            const aiChoice = pattern[patternIndex];
+            patternIndex = (patternIndex + 1) % pattern.length;
+
+            const popup = document.getElementById('popup');
+            const msg = document.getElementById('result-msg');
+            const media = document.getElementById('media-content');
+
+            let outcome = "";
+            if (playerChoice === aiChoice) { outcome = "DRAW"; }
+            else if (
+                (playerChoice === 'rock' && aiChoice === 'scissors') ||
+                (playerChoice === 'paper' && aiChoice === 'rock') ||
+                (playerChoice === 'scissors' && aiChoice === 'paper')
+            ) { outcome = "WIN"; }
+            else { outcome = "LOSE"; }
+
+            popup.style.display = 'flex';
+
+            if (outcome === "WIN") {
+                msg.innerText = ""; 
+                media.innerHTML = `
+                    <div class="win-title">CHAMPION TIME!</div>
+                    <img src="win.png" class="result-image">
+                    <img src="celebrate.png" class="moving-image">
+                `;
+            } else if (outcome === "LOSE") {
+                msg.innerText = "LOSE";
+                media.innerHTML = `<img src="lose.png" class="result-image">`;
+            } else {
+                msg.innerText = "DRAW";
+                media.innerHTML = ""; 
+            }
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+        }
+    </script>
 </body>
 </html>
