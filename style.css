@@ -1,3 +1,4 @@
+/* --- BACKGROUND & MAIN MENU --- */
 body {
     font-family: 'Arial Black', sans-serif;
     background-image: url('background.png'); 
@@ -38,13 +39,15 @@ body {
     border: none;
     border-radius: 12px;
     box-shadow: 0 6px 0 #004a8d;
+    margin: 5px;
 }
 
+/* --- THE FULL SCREEN POPUP --- */
 #popup {
     display: none;
     position: fixed;
     top: 0; left: 0;
-    width: 100%; height: 100%;
+    width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.98);
     flex-direction: column;
     align-items: center;
@@ -52,44 +55,52 @@ body {
     z-index: 1000;
 }
 
-/* --- WIN IMAGE SIDE-BY-SIDE LAYOUT --- */
+/* --- THE ROW THAT HOLDS THE TWO IMAGES --- */
 .image-row {
     display: flex;
+    flex-direction: row; /* Forces images to be side-by-side */
     justify-content: center;
     align-items: center;
-    gap: 20px;
-    width: 95%;
+    gap: 30px; /* Space between the two images */
+    width: 90%;
+    margin-bottom: 20px;
 }
 
-.result-image {
-    width: 45%; /* Adjusted so two can fit */
-    max-height: 40vh;
+/* Style for the Win Images in the row */
+.result-image, .result-image-side {
+    width: auto;
+    max-width: 40%; /* Each takes roughly half the row */
+    height: 40vh;   /* Keeps them the same height */
     object-fit: contain;
-    border: 5px solid #0074D9;
-    border-radius: 15px;
+    border-radius: 20px;
+    box-shadow: 0 0 30px rgba(0, 116, 217, 0.5);
 }
 
-.result-image-side {
-    width: 45%;
-    max-height: 40vh;
+.result-image { border: 8px solid #0074D9; }
+.result-image-side { border: 8px solid #FFDC00; }
+
+/* Style for the Lose image (Full Size) */
+.result-image-lose {
+    width: 80%;
+    max-height: 60vh;
     object-fit: contain;
-    border: 5px solid #FFDC00; /* Different border color for variety */
-    border-radius: 15px;
+    border: 10px solid #FF4136;
+    border-radius: 20px;
 }
 
+/* THE BOUNCING IMAGE AT THE BOTTOM */
 .moving-image {
-    width: 40%;
-    max-width: 300px;
-    margin-top: 20px;
+    width: 30%;
+    max-width: 250px;
     border: 4px solid #FFDC00;
-    border-radius: 10px;
+    border-radius: 15px;
     animation: bounce 1.8s infinite ease-in-out;
 }
 
 @keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-75px); }
+    50% { transform: translateY(-75px); } /* 2cm move */
 }
 
-.win-title { font-size: 40px; color: #FFDC00; margin-bottom: 10px; }
+.win-title { font-size: 50px; color: #FFDC00; margin-bottom: 20px; text-shadow: 0 0 10px #000; }
 #result-msg { font-size: 80px; color: #7FDBFF; }
