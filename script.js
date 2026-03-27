@@ -1,4 +1,3 @@
-// AI Pattern: Rock, Rock, Paper, Scissors
 const pattern = ['rock', 'rock', 'paper', 'scissors'];
 let patternIndex = 0;
 
@@ -7,7 +6,6 @@ function startGame(playerChoice) {
     let count = 3;
     const buttons = document.querySelectorAll('.choices button');
     
-    // Lock buttons
     buttons.forEach(btn => btn.disabled = true);
     countdownDisplay.innerText = count;
 
@@ -36,7 +34,7 @@ function processResult(playerChoice) {
 
     if (playerChoice === aiChoice) {
         msg.innerText = "DRAW";
-        media.innerHTML = ``;
+        media.innerHTML = "";
     } 
     else if (
         (playerChoice === 'rock' && aiChoice === 'scissors') ||
@@ -47,11 +45,11 @@ function processResult(playerChoice) {
         msg.innerText = ""; 
         media.innerHTML = `
             <div class="win-title">CHAMPION TIME!</div>
-            <img src="win.png" class="result-image">
-            <img src="celebrate.png" class="moving-image">
-            <div class="button-group">
-                <button class="home-btn" onclick="closePopup()">HOME PAGE</button>
+            <div class="image-row">
+                <img src="win.png" class="result-image">
+                <img src="win-side.jpg" class="result-image-side">
             </div>
+            <img src="celebrate.png" class="moving-image">
         `;
     } 
     else {
@@ -59,6 +57,11 @@ function processResult(playerChoice) {
         msg.innerText = "LOSE";
         media.innerHTML = `<img src="lose.png" class="result-image">`;
     }
+
+    // --- AUTO RETURN TO HOME AFTER 5 SECONDS ---
+    setTimeout(() => {
+        closePopup();
+    }, 5000);
 }
 
 function closePopup() {
