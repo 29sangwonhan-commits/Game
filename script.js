@@ -1,26 +1,3 @@
-const pattern = ['rock', 'rock', 'paper', 'scissors'];
-let patternIndex = 0;
-
-function startGame(playerChoice) {
-    const countdownDisplay = document.getElementById('countdown-text');
-    let count = 3;
-    const buttons = document.querySelectorAll('.choices button');
-    buttons.forEach(btn => btn.disabled = true);
-    countdownDisplay.innerText = count;
-
-    const interval = setInterval(() => {
-        count--;
-        if (count > 0) {
-            countdownDisplay.innerText = count;
-        } else {
-            clearInterval(interval);
-            countdownDisplay.innerText = "";
-            buttons.forEach(btn => btn.disabled = false); 
-            processResult(playerChoice);
-        }
-    }, 800);
-}
-
 function processResult(playerChoice) {
     const aiChoice = pattern[patternIndex];
     patternIndex = (patternIndex + 1) % pattern.length;
@@ -39,17 +16,19 @@ function processResult(playerChoice) {
     else { outcome = "LOSE"; }
 
     popup.style.display = 'flex';
-    msg.innerText = outcome;
-
-    if (outcome === "LOSE") {
+    
+    if (outcome === "WIN") {
+        msg.innerText = ""; // Hide the default 'WIN' text to use custom title
+        media.innerHTML = `
+            <div class="win-title">CHAMPION TIME!</div>
+            <img src="win.png" class="result-image">
+            <img src="celebrate.png" class="moving-image">
+        `;
+    } else if (outcome === "LOSE") {
+        msg.innerText = "LOSE";
         media.innerHTML = `<img src="lose.png" class="result-image">`;
-    } else if (outcome === "WIN") {
-        media.innerHTML = `<img src="win.png" class="result-image">`;
     } else {
+        msg.innerText = "DRAW";
         media.innerHTML = ""; 
     }
-}
-
-function closePopup() {
-    document.getElementById('popup').style.display = 'none';
 }
