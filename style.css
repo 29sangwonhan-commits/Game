@@ -53,13 +53,13 @@ button:hover {
     color: #FFDC00; 
 }
 
-/* Result Popup Overlay */
+/* --- BIGGER RESULT POPUP --- */
 #popup {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -67,19 +67,25 @@ button:hover {
 }
 
 #result-msg {
-    font-size: 60px;
+    font-size: 80px; /* Bigger Text */
     font-weight: bold;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
+    color: #7FDBFF;
 }
 
-.lose-image {
-    max-width: 300px;
-    border: 5px solid #0074D9;
-    border-radius: 15px;
+.result-image {
+    width: 80%; /* Takes up 80% of the screen width */
+    max-width: 800px; /* Limits it so it doesn't get TOO huge on giant monitors */
+    height: auto;
+    border: 8px solid #0074D9;
+    border-radius: 20px;
     margin-bottom: 20px;
+    box-shadow: 0 0 50px rgba(0, 116, 217, 0.5);
 }
 
 .restart-btn {
     background-color: #ffffff;
     color: #001f3f;
+    padding: 20px 50px;
+    font-size: 24px;
 }
