@@ -1,182 +1,111 @@
-/* --- 1. GLOBAL RESET & BASE STYLES --- */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
+/* --- 1. THEME & BACKGROUND --- */
 body {
-    font-family: 'Montserrat', 'Segoe UI', Roboto, sans-serif;
-    background-image: url('background.png');
+    font-family: 'Arial Black', sans-serif;
+    background-image: url('background.png'); /* The boy with the cake */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    background-repeat: no-repeat;
     height: 100vh;
+    margin: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden; /* Prevents scrollbars during animations */
+    overflow: hidden;
 }
 
-/* --- 2. THE MAIN GAME CARD (Glassmorphism) --- */
+/* --- 2. MAIN MENU CARD --- */
 .container {
     text-align: center;
-    background: rgba(0, 31, 63, 0.7); /* Deep blue with transparency */
-    backdrop-filter: blur(15px); /* Blurs the background image behind the box */
-    -webkit-backdrop-filter: blur(15px);
-    padding: 60px;
+    background: rgba(0, 31, 63, 0.85); /* Deep Blue Glass Effect */
+    backdrop-filter: blur(10px);
+    padding: 50px;
     border-radius: 30px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+    border: 3px solid #0074D9;
+    box-shadow: 0 0 40px rgba(0,0,0,0.6);
     width: 90%;
     max-width: 600px;
-    transition: transform 0.3s ease;
 }
 
-.container:hover {
-    transform: scale(1.02);
+h1 { color: #7FDBFF; font-size: 3rem; margin-bottom: 30px; text-shadow: 2px 2px #000; }
+
+#countdown-text {
+    font-size: 110px;
+    height: 130px;
+    color: #FFDC00;
+    text-shadow: 4px 4px #000;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 40px;
-    color: #7FDBFF;
-    text-transform: uppercase;
-    letter-spacing: 5px;
-    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-/* --- 3. BUTTON STYLING --- */
-.choices {
-    display: flex;
-    gap: 25px;
-    justify-content: center;
-    flex-wrap: wrap;
-}
+.choices { display: flex; gap: 20px; justify-content: center; }
 
 button {
-    padding: 20px 40px;
+    padding: 15px 30px;
     font-size: 1.2rem;
-    font-weight: 800;
-    text-transform: uppercase;
+    font-weight: bold;
     cursor: pointer;
-    border: 2px solid #0074D9;
-    border-radius: 15px;
+    border: none;
+    border-radius: 12px;
     background: #0074D9;
     color: white;
-    box-shadow: 0 8px 0 #004a8d; /* 3D Button effect */
-    transition: all 0.1s ease;
-    outline: none;
+    box-shadow: 0 6px 0 #004a8d;
+    transition: 0.1s;
 }
 
-button:hover {
-    background-color: #39CCCC;
-    border-color: #39CCCC;
-    transform: translateY(-2px);
-    box-shadow: 0 10px 0 #28a1a1;
-}
+button:active { transform: translateY(3px); box-shadow: 0 3px 0 #004a8d; }
 
-button:active {
-    transform: translateY(4px);
-    box-shadow: 0 4px 0 #28a1a1;
-}
-
-/* --- 4. COUNTDOWN STYLING --- */
-#countdown-text {
-    font-size: 120px;
-    font-weight: 900;
-    height: 140px;
-    margin: 20px 0;
-    color: #FFDC00;
-    text-shadow: 0 0 20px rgba(255, 220, 0, 0.6);
-}
-
-/* --- 5. FULL-SCREEN RESULT POPUP --- */
+/* --- 3. HUGE RESULT POPUP --- */
 #popup {
     display: none;
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 7, 20, 0.98); /* Near black blue */
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.98);
     flex-direction: column;
     align-items: center;
     justify-content: center;
     z-index: 1000;
     padding: 20px;
-    animation: fadeIn 0.5s ease;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
+#result-msg { font-size: 90px; color: #7FDBFF; margin-bottom: 10px; text-transform: uppercase; }
 
-/* --- 6. TEXT & IMAGES INSIDE POPUP --- */
-.win-title {
-    font-size: 60px;
-    font-weight: 900;
-    color: #FFDC00;
-    margin-bottom: 20px;
-    text-shadow: 0 0 30px rgba(255, 220, 0, 0.5);
-    text-align: center;
-}
+.win-title { font-size: 55px; color: #FFDC00; margin-bottom: 20px; text-shadow: 0 0 15px #FFDC00; }
 
-#result-msg {
-    font-size: 100px;
-    font-weight: 900;
-    color: #7FDBFF;
-    margin-bottom: 20px;
-}
-
-/* MAIN BIG IMAGE */
+/* IMAGE SIZES */
 .result-image {
-    width: 90%;
-    max-width: 850px;
+    width: 90%; /* MASSIVE */
+    max-width: 1100px;
     max-height: 50vh;
     object-fit: contain;
     border: 10px solid #0074D9;
-    border-radius: 25px;
-    box-shadow: 0 0 100px rgba(0, 116, 217, 0.4);
-}
-
-/* THE MOVING BOUNCE IMAGE */
-.moving-image {
-    width: 60%;
-    max-width: 400px;
-    height: auto;
-    margin-top: 30px;
     border-radius: 20px;
-    border: 4px solid #FFDC00;
-    animation: bounceMove 2s infinite ease-in-out;
 }
 
-@keyframes bounceMove {
+.moving-image {
+    width: 55%;
+    max-width: 450px;
+    margin-top: 25px;
+    border: 6px solid #FFDC00;
+    border-radius: 15px;
+    animation: bounce 1.8s infinite ease-in-out;
+}
+
+/* 2cm BOUNCE ANIMATION */
+@keyframes bounce {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-75px); } /* Approx 2cm upwards */
+    50% { transform: translateY(-75px); } /* 75px is roughly 2cm */
 }
 
-/* --- 7. RESTART BUTTON --- */
-.restart-btn {
+/* --- 4. WIN SCREEN BUTTONS --- */
+.button-group {
     margin-top: 40px;
-    background-color: #FFFFFF !important;
+    display: flex;
+    gap: 30px;
+}
+
+.home-btn {
+    background-color: #FFDC00 !important;
     color: #001f3f !important;
-    box-shadow: 0 8px 0 #cccccc !important;
-    padding: 25px 70px !important;
-    font-size: 1.5rem !important;
-}
-
-.restart-btn:hover {
-    background-color: #f0f0f0 !important;
-}
-
-/* --- 8. RESPONSIVE DESIGN (For Phones) --- */
-@media (max-width: 600px) {
-    .container { padding: 30px; }
-    h1 { font-size: 1.5rem; }
-    button { width: 100%; }
-    .win-title { font-size: 30px; }
-    #result-msg { font-size: 60px; }
+    padding: 20px 60px !important;
+    font-size: 25px !important;
+    box-shadow: 0 8px 0 #b39b00 !important;
 }
