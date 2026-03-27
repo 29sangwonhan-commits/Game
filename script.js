@@ -49,7 +49,10 @@ function processResult(playerChoice) {
                 <img src="win.png" class="result-image">
                 <img src="win-side.jpg" class="result-image-side">
             </div>
-            <img src="celebrate.png" class="moving-image">
+            <div class="celebrate-container">
+                <img src="celebrate.png" class="moving-image">
+                <img src="splash.png" class="splash-overlay">
+            </div>
         `;
     } 
     else {
