@@ -1,99 +1,26 @@
-/* Body Background with your Image */
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('background.png'); /* Your background photo */
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed;
-    color: #ffffff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 0;
+/* ... (keep previous body and container styles) ... */
+
+/* --- ANIMATION FOR THE SECOND WIN IMAGE --- */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-2cm); } /* Moves up 2cm */
 }
 
-/* Semi-transparent container so you can still see the buttons */
-.container {
-    text-align: center;
-    background: rgba(0, 51, 102, 0.85); /* Blue but see-through */
-    padding: 40px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    border: 2px solid #0074D9;
+.moving-image {
+    width: 60%;
+    max-width: 500px;
+    height: auto;
+    margin-top: 20px;
+    border: 5px solid #FFDC00;
+    border-radius: 15px;
+    animation: bounce 2s infinite ease-in-out; /* The 2cm move */
 }
 
-h1 { margin-bottom: 30px; color: #7FDBFF; text-shadow: 2px 2px #000; }
-
-.choices {
-    display: flex;
-    gap: 20px;
-    justify-content: center;
-}
-
-button {
-    padding: 15px 30px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    border-radius: 10px;
-    background-color: #0074D9;
-    color: white;
-    transition: 0.3s;
-}
-
-button:hover {
-    background-color: #7FDBFF;
-    color: #001f3f;
-    transform: translateY(-3px);
-}
-
-#countdown-text {
-    font-size: 80px;
-    height: 100px;
-    margin: 20px 0;
+.win-title {
+    font-size: 50px;
     color: #FFDC00;
     text-shadow: 3px 3px #000;
-}
-
-/* --- SUPER BIG RESULT POPUP --- */
-#popup {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.95);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    z-index: 100;
-}
-
-#result-msg {
-    font-size: 90px; /* Extra large text */
-    font-weight: bold;
     margin-bottom: 10px;
-    color: #7FDBFF;
-    text-shadow: 4px 4px #000;
 }
 
-.result-image {
-    width: 90%; /* Almost full screen width */
-    max-width: 1000px; /* Big limit */
-    max-height: 70vh; /* Limits height so it doesn't go off screen */
-    object-fit: contain;
-    border: 10px solid #0074D9;
-    border-radius: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 0 60px rgba(0, 116, 217, 0.7);
-}
-
-.restart-btn {
-    background-color: #ffffff;
-    color: #001f3f;
-    padding: 20px 60px;
-    font-size: 28px;
-    border-radius: 50px;
-}
+/* ... (keep previous popup and result-image styles) ... */
