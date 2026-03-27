@@ -6,7 +6,7 @@ function startGame(playerChoice) {
     const countdownDisplay = document.getElementById('countdown-text');
     let count = 3;
     
-    // Disable buttons so user can't click twice
+    // Disable buttons
     const buttons = document.querySelectorAll('.choices button');
     buttons.forEach(btn => btn.disabled = true);
 
@@ -19,7 +19,7 @@ function startGame(playerChoice) {
         } else {
             clearInterval(interval);
             countdownDisplay.innerText = "";
-            buttons.forEach(btn => btn.disabled = false); // Re-enable buttons
+            buttons.forEach(btn => btn.disabled = false); 
             processResult(playerChoice);
         }
     }, 800);
@@ -27,8 +27,6 @@ function startGame(playerChoice) {
 
 function processResult(playerChoice) {
     const aiChoice = pattern[patternIndex];
-    
-    // Cycle through the pattern
     patternIndex = (patternIndex + 1) % pattern.length;
 
     const popup = document.getElementById('popup');
@@ -49,15 +47,16 @@ function processResult(playerChoice) {
         outcome = "LOSE";
     }
 
-    // Show the results
     popup.style.display = 'flex';
     msg.innerText = outcome;
 
+    // Logic for Big Images
     if (outcome === "LOSE") {
-        // Ensure your image is named 'lose.png' in the same folder!
-        media.innerHTML = `<img src="lose.png" class="lose-image" alt="You Lose!">`;
+        media.innerHTML = `<img src="lose.png" class="result-image" alt="You Lose!">`;
+    } else if (outcome === "WIN") {
+        media.innerHTML = `<img src="win.png" class="result-image" alt="You Win!">`;
     } else {
-        media.innerHTML = ""; 
+        media.innerHTML = ""; // No image for a draw
     }
 }
 
