@@ -55,10 +55,10 @@ function processResult(playerChoice) {
     else {
         // LOSING SCREEN
         msg.innerText = "LOSE";
-        media.innerHTML = `<img src="lose.png" class="result-image">`;
+        media.innerHTML = `<img src="lose.png" class="result-image-lose">`;
     }
 
-    // --- AUTO RETURN TO HOME AFTER 5 SECONDS ---
+    // Auto-return to home after 5 seconds
     setTimeout(() => {
         closePopup();
     }, 5000);
