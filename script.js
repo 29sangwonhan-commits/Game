@@ -1,15 +1,11 @@
-// AI Pattern: Rock, Rock, Paper, Scissors
 const pattern = ['rock', 'rock', 'paper', 'scissors'];
 let patternIndex = 0;
 
 function startGame(playerChoice) {
     const countdownDisplay = document.getElementById('countdown-text');
     let count = 3;
-    
-    // Disable buttons
     const buttons = document.querySelectorAll('.choices button');
     buttons.forEach(btn => btn.disabled = true);
-
     countdownDisplay.innerText = count;
 
     const interval = setInterval(() => {
@@ -34,29 +30,23 @@ function processResult(playerChoice) {
     const media = document.getElementById('media-content');
 
     let outcome = "";
-
-    if (playerChoice === aiChoice) {
-        outcome = "DRAW";
-    } else if (
+    if (playerChoice === aiChoice) { outcome = "DRAW"; }
+    else if (
         (playerChoice === 'rock' && aiChoice === 'scissors') ||
         (playerChoice === 'paper' && aiChoice === 'rock') ||
         (playerChoice === 'scissors' && aiChoice === 'paper')
-    ) {
-        outcome = "WIN";
-    } else {
-        outcome = "LOSE";
-    }
+    ) { outcome = "WIN"; }
+    else { outcome = "LOSE"; }
 
     popup.style.display = 'flex';
     msg.innerText = outcome;
 
-    // Logic for Big Images
     if (outcome === "LOSE") {
-        media.innerHTML = `<img src="lose.png" class="result-image" alt="You Lose!">`;
+        media.innerHTML = `<img src="lose.png" class="result-image">`;
     } else if (outcome === "WIN") {
-        media.innerHTML = `<img src="win.png" class="result-image" alt="You Win!">`;
+        media.innerHTML = `<img src="win.png" class="result-image">`;
     } else {
-        media.innerHTML = ""; // No image for a draw
+        media.innerHTML = ""; 
     }
 }
 
