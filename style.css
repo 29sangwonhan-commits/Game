@@ -1,7 +1,10 @@
-/* Deep Navy and Blue Theme */
+/* Body Background with your Image */
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #001f3f; 
+    background-image: url('background.png'); /* Your background photo */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: #ffffff;
     display: flex;
     flex-direction: column;
@@ -11,16 +14,17 @@ body {
     margin: 0;
 }
 
+/* Semi-transparent container so you can still see the buttons */
 .container {
     text-align: center;
-    background: #003366; 
+    background: rgba(0, 51, 102, 0.85); /* Blue but see-through */
     padding: 40px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     border: 2px solid #0074D9;
 }
 
-h1 { margin-bottom: 30px; color: #7FDBFF; }
+h1 { margin-bottom: 30px; color: #7FDBFF; text-shadow: 2px 2px #000; }
 
 .choices {
     display: flex;
@@ -50,10 +54,11 @@ button:hover {
     font-size: 80px;
     height: 100px;
     margin: 20px 0;
-    color: #FFDC00; 
+    color: #FFDC00;
+    text-shadow: 3px 3px #000;
 }
 
-/* --- BIGGER RESULT POPUP --- */
+/* --- SUPER BIG RESULT POPUP --- */
 #popup {
     display: none;
     position: fixed;
@@ -67,25 +72,28 @@ button:hover {
 }
 
 #result-msg {
-    font-size: 80px; /* Bigger Text */
+    font-size: 90px; /* Extra large text */
     font-weight: bold;
     margin-bottom: 10px;
     color: #7FDBFF;
+    text-shadow: 4px 4px #000;
 }
 
 .result-image {
-    width: 80%; /* Takes up 80% of the screen width */
-    max-width: 800px; /* Limits it so it doesn't get TOO huge on giant monitors */
-    height: auto;
-    border: 8px solid #0074D9;
+    width: 90%; /* Almost full screen width */
+    max-width: 1000px; /* Big limit */
+    max-height: 70vh; /* Limits height so it doesn't go off screen */
+    object-fit: contain;
+    border: 10px solid #0074D9;
     border-radius: 20px;
     margin-bottom: 20px;
-    box-shadow: 0 0 50px rgba(0, 116, 217, 0.5);
+    box-shadow: 0 0 60px rgba(0, 116, 217, 0.7);
 }
 
 .restart-btn {
     background-color: #ffffff;
     color: #001f3f;
-    padding: 20px 50px;
-    font-size: 24px;
+    padding: 20px 60px;
+    font-size: 28px;
+    border-radius: 50px;
 }
